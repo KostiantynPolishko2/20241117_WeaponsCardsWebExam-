@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import 'the-new-css-reset';
+// import 'the-new-css-reset';
 import reportWebVitals from './reportWebVitals';
 import AdminPage from './components/AdminPage/AdminPage';
 
