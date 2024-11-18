@@ -10,7 +10,6 @@ export const fetchToken = async (loginModel : ILoginModel | null):Promise<number
 
     try{
         const token = (await axios.post("https://localhost:7185/api/Authenticate/login", loginModel)).data;
-        console.log('get token', token);
 
         localStorage.setItem("token", token);
         if(token){
@@ -19,7 +18,7 @@ export const fetchToken = async (loginModel : ILoginModel | null):Promise<number
         return 200;
     }
     catch(error){
-        console.log(error);
+        // console.log(error);
         return 401;
     }
 }

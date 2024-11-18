@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
-import { LoginWrapper } from './Login.styled';
+import { LoginWrapper, LoginForm, LoginMessage } from './Login.styled';
 import { fetchToken } from './LoginApi';
-import { log } from 'console';
+import '../styles/styles.css';
 
 interface ILoginModel {
    username: string,
@@ -45,6 +45,8 @@ const Login: FC = () => {
       if (statusCode == 200){
          setIsLogin(true);
          setLoginMessage('Authorized');
+         setUsername('none');
+         setPassword('none');
       }
       else if (statusCode == 401){
          setIsLogin(false);
@@ -53,34 +55,37 @@ const Login: FC = () => {
       else{
          setIsLogin(false);
          setLoginMessage('');
+         setUsername('none');
+         setPassword('none');
       }
    }
-
-   useEffect(() => {handleLoginMessage();}, [statusCode]);
 
    const handleLogout = () => {
       localStorage.removeItem('token')
       setStatusCode(0);
-      setUsername('none');
-      setPassword('none');
    }
+
+   useEffect(() => {handleLoginMessage();}, [statusCode]);
 
    return (
       <LoginWrapper>
-         <p>Authorization</p>
-         <form>
-            <label>
+         <LoginForm>
+            <label className='display-hr-center'>
                User Name:
                <input type="text" placeholder={_username} onBlur={handleName} disabled = {isLogin}/>
             </label>
-            <label>
-               Password:
-               <input type="text" placeholder={_password} onBlur={handlePassword} disabled = {isLogin}/>
+            <label className='display-hr-center'>
+                  Password:
+                  <input type="password" placeholder={_password} onBlur={handlePassword} disabled = {isLogin}/>
             </label>
-            <button type='button' onClick={handleLogin} disabled = {isLogin}>Login</button>
-            <button type='button' onClick={handleLogout}>Logout</button>
-            <p>{loginMessage}</p>
-         </form>
+            <div className='display-hr-center' style={{padding: '5px 0px'}}>
+               <div>
+                  <button style={{margin: '0px 2px'}} type='button' onClick={handleLogin} disabled = {isLogin}>Login</button>
+                  <button style={{margin: '0px 2px'}} type='button' onClick={handleLogout}>Logout</button>
+               </div>
+               <LoginMessage isLogin={isLogin}>{loginMessage}</LoginMessage>
+            </div>
+         </LoginForm>
       </LoginWrapper>
      );
 }
