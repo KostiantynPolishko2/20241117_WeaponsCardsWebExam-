@@ -86,10 +86,12 @@ const Login: FC<IAuth> = (props) => {
             </label>
             <div className='display-hr-center' style={{padding: '5px 0px'}}>
                <div>
-                  <button style={{margin: '0px 2px'}} type='button' onClick={handleLogin} disabled = {isLogin}>Login</button>
-                  <button style={{margin: '0px 2px'}} type='button' onClick={handleLogout}>Logout</button>
+                  <button type='button' onClick={handleLogin} disabled = {isLogin}>Login</button>
+                  <button type='button' onClick={handleLogout}>Logout</button>
                </div>
-               <LoginMessage isLogin={isLogin}>{loginMessage}</LoginMessage>
+               <div style={{textAlign:'center', width: '60%'}}>
+                  <LoginMessage isLogin={isLogin}>{loginMessage}</LoginMessage>
+               </div>
             </div>
          </LoginForm>
       </LoginWrapper>

@@ -21,21 +21,24 @@ const WeaponsItemsTable: FC<WeaponsItemsTableProps> = (props) => {
       setIsDisplay(!isDisplay);
    };
 
-   useEffect(()=> {   
-      if(!isDisplay || !props.flag){
-         setDisplay('none');
-         setBtnTitle('SHOW');
-         _handleName(null);
-         if(!props.flag){
-            setIsDisplay(!isDisplay);
-         }
+   useEffect(() => {
+      if (!props.flag){
+         setIsDisplay(!isDisplay);
       }
-      else{
+   }, [props.flag])
+
+   useEffect(()=> {   
+      if(isDisplay){
          setDisplay('block');
          setBtnTitle('HIDE');
       }
+      else{
+         setDisplay('none');
+         setBtnTitle('SHOW');
+         _handleName(null);
+      }
    }
-   , [props.flag, isDisplay, _handleName]);
+   , [isDisplay, _handleName]);
 
    return (
       <WeaponsItemsTabelWrapper className='table-container' >

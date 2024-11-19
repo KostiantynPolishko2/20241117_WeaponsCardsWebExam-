@@ -2,14 +2,16 @@ import React, {FC, useEffect, useState, useMemo, useCallback} from 'react';
 import './WeaponsCard.css';
 import axios from 'axios';
 import { fetchImagePath } from './api';
-import { BtnImgWrapper, BlockLoad } from './WeaponsCard.styled';
+import { BtnImgWrapper, BlockLoad, WeaponsCardWraps, FielDescription, BtnCardIsVisible, BtnCRUD } from './WeaponsCard.styled';
+import { Display } from '../styles/styles.styled';
 
 interface IWeaponsCardDto {
-  name: string,
-  category: string, 
-  size: number,
-  weight: number,
-  speed: number, 
+  model: string,
+  name: string, 
+  isVisible: boolean,
+  price: number,
+  weight: number, 
+  description: string,
   image_path: string
 }
 
@@ -18,41 +20,46 @@ interface IError {
 }
 
 type TWeaponsCard = {
-  name: string | null,
+  model: string | null,
 }
 
-const AsteroidCard: FC<TWeaponsCard> = (props) => {
+const WeaponsCard: FC<TWeaponsCard> = (props) => {
 
-  const [asteroidInfoDto, setAsteroidInfoDto] = useState<IWeaponsCardDto | null>(null);
+  const [weaponsCardDto, setWeaponsCardDto] = useState<IWeaponsCardDto | null>(null);
   const [clientsError, setClientsError] = useState<IError | null>(null);
-  const [isBtnImg, setIsBtnImg] = useState<boolean>(true);
   const [imagePath, setImagePath] = useState<string | null>(null);
 
-  const spaceObjectRequest = useMemo(() => 
+  const weaponsCardRequest = useMemo(() => 
     axios.create({
-      baseURL: 'https://spaceobjectsserver.azurewebsites.net/api/SpaceObject',
+      baseURL: 'http://localhost:5144/api/WeaponsItems',
       method: 'get',
       responseType: 'json',
+      timeout: 4000
     }), []
   );
 
   const handleRequest = useCallback(() => {
-    if(props.name != null){
-      spaceObjectRequest.get(`asteroid/${props.name}`)
+
+    weaponsCardRequest.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+
+    if(props.model != null){
+      weaponsCardRequest.get(`model/${props.model}`)
       .then(responce => {
-        setAsteroidInfoDto(responce.data);
+        setWeaponsCardDto(responce.data);
+        setClientsError(null);
       })
       .catch(error => {
+          setWeaponsCardDto(null);
           setClientsError(error);
       });
     }
-  }, [props.name, spaceObjectRequest]);
+  }, [props.model, weaponsCardRequest]);
 
   useEffect(() => {
         handleRequest();
   }, [handleRequest]);
 
-  if (props.name == null){
+  if (props.model == null){
     return (<></>);
   }
 
@@ -69,33 +76,35 @@ const AsteroidCard: FC<TWeaponsCard> = (props) => {
     setImagePath(await fetchImagePath((e.currentTarget.lastElementChild as HTMLImageElement).alt));
   }
 
-  const handleBtnImage = () => {
-    setIsBtnImg(true);
-    setImagePath(null);
-  }
-
   return (
-    <div className="profile-card">
-      <div className="profile-details">
-        <BtnImgWrapper onClick={handleImageAI} isDisable = {isBtnImg}>
-          <BlockLoad isDisable = {isBtnImg}>CLICK NEW</BlockLoad>
-          <img className="avatar" src={imagePath || asteroidInfoDto?.image_path} alt={`${asteroidInfoDto?.name || 'none'}`}/>
-        </BtnImgWrapper>
-        <div className="profile-info">
-          <h2>Name:   {asteroidInfoDto?.name}</h2>
-          <h2>Type:   {asteroidInfoDto?.category}</h2>
-          <h3>Size:   {asteroidInfoDto?.size}</h3>
-          <h3>Weight: {asteroidInfoDto?.weight}</h3>
-          <h3>Speed:  {asteroidInfoDto?.speed}</h3>
+    <WeaponsCardWraps>
+      <div className="profile-card">
+        <div className="profile-details">
+          <BtnImgWrapper onClick={handleImageAI} isDisable = {true}>
+            <img className="avatar" src={imagePath || weaponsCardDto?.image_path} alt={`${weaponsCardDto?.name || 'none'}`}/>
+          </BtnImgWrapper>
+          <div className="profile-info">
+            <h2>Name:   {weaponsCardDto?.model}</h2>
+            <h2>Type:   {weaponsCardDto?.name}</h2>
+            <h3>Size:   {weaponsCardDto?.price}UAH</h3>
+            <h3>Weight: {weaponsCardDto?.weight}kg</h3>
+            <Display>
+              <h3>Activeted card:</h3>
+              <BtnCardIsVisible isVisible={weaponsCardDto?.isVisible || false} isCursor={true} disabled={true}/>
+            </Display>
+          </div>
+        </div>
+        <FielDescription>
+          <p>{weaponsCardDto?.description}</p>
+        </FielDescription>
+        <div className="actions">
+          <button className="edit-btn">Edit</button>
+          <BtnCRUD className='post-btn' disabled={true} isCursor={true}>Save</BtnCRUD>
+          <BtnCRUD className='delete-btn' disabled={!true} isCursor={!true}>Delete</BtnCRUD>
         </div>
       </div>
-      <div className="actions">
-        <button className="edit-btn" onClick={() => setIsBtnImg(false)}>Edit</button>
-        <button className="post-btn" onClick={handleBtnImage} disabled>Save</button>
-        <button className="delete-btn" onClick={handleBtnImage}>Cancel</button>
-      </div>
-    </div>
+    </WeaponsCardWraps>
   );
 };
 
-export default AsteroidCard;
+export default WeaponsCard;

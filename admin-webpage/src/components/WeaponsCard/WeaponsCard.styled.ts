@@ -9,7 +9,7 @@ export const BtnImgWrapper = styled.button.attrs<IBtnImg>(
         type: "button",
         name: "edit",
         autoFocus: true,
-        disabled: props.isDisable
+        disabled: !props.isDisable
     })
 )<IBtnImg>`
     margin: 0;
@@ -37,5 +37,48 @@ export const BlockLoad = styled.div<IBtnImg>`
     border: solid 1px black;
     position: absolute;
     transform: translate(10%, 100%);
-    top: 57%;
+    top: 39%;
+`;
+
+export const WeaponsCardWraps = styled.div`
+    margin: 10px 0;
+`;
+
+export const FielDescription = styled.div`
+    margin-bottom: 10px;
+    background-color: #daebf5;
+    color: black;
+    min-width: 450px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & > p{
+        margin: 0;
+        padding: 2px 5px;
+    }
+`;
+
+interface IBtnCardVisible {
+    isVisible: boolean,
+    isCursor: boolean
+}
+
+export const BtnCardIsVisible = styled.input.attrs<IBtnCardVisible>(
+    (props) => ({
+        type: 'checkbox',
+        checked: props.isVisible,
+    }))<IBtnCardVisible>`
+    width: 20px;
+    height: 20px;
+    cursor: ${(props) => (props.isCursor ? "not-allowed" : "pointer")};
+`;
+
+interface IBtnCRUD {
+    isCursor: boolean,
+}
+
+export const BtnCRUD = styled.button<IBtnCRUD>`
+    cursor: ${(props) => (props.isCursor ? "not-allowed" : "pointer")};
 `;

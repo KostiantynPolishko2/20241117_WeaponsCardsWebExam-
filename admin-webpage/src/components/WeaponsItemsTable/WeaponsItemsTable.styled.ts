@@ -9,7 +9,7 @@ export const WeaponsItemsTabelWrapper = styled.div`
     width: 740px;
     position: absolute;
     top: 0;
-    left: 350px;
+    left: 550px;
     margin: 7px;
 `;
 

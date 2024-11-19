@@ -9,7 +9,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #f95341;
+    background-color: #29970d;
     color: white;
     padding: 15px;
   }
@@ -19,7 +19,7 @@
   }
   
   .download-button {
-    background-color: #5aa228;
+    background-color: #366d0f;
     border: none;
     color: white;
     padding: 10px 20px;
@@ -29,7 +29,7 @@
   }
   
   .download-button:hover {
-    background-color: #4a8a23;
+    background-color: #80df45;
   }
   
   table {
