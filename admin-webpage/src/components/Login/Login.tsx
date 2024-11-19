@@ -8,7 +8,11 @@ interface ILoginModel {
    password: string
 }
 
-const Login: FC = () => {
+interface IAuth {
+   _handleIsShow: (flag: boolean) => void
+}
+
+const Login: FC<IAuth> = (props) => {
 
    const [_username, setUsername] = useState<string>("none");
    const [_password, setPassword] = useState<string>("none");
@@ -29,7 +33,6 @@ const Login: FC = () => {
       if(_username != 'none' && _password != 'none')
       {
          setLoginModel({username: _username, password: _password});
-         console.log('call form submit', loginModel);
       }  
    }, [_username, _password]);
    
@@ -44,16 +47,19 @@ const Login: FC = () => {
    const handleLoginMessage = () => {
       if (statusCode == 200){
          setIsLogin(true);
+         props._handleIsShow(true);
          setLoginMessage('Authorized');
          setUsername('none');
          setPassword('none');
       }
       else if (statusCode == 401){
          setIsLogin(false);
+         props._handleIsShow(false);
          setLoginMessage('Unauthorized');
       }
       else{
          setIsLogin(false);
+         props._handleIsShow(false);
          setLoginMessage('');
          setUsername('none');
          setPassword('none');
@@ -61,7 +67,7 @@ const Login: FC = () => {
    }
 
    const handleLogout = () => {
-      localStorage.removeItem('token')
+      localStorage.removeItem('token');
       setStatusCode(0);
    }
 
@@ -76,7 +82,7 @@ const Login: FC = () => {
             </label>
             <label className='display-hr-center'>
                   Password:
-                  <input type="password" placeholder={_password} onBlur={handlePassword} disabled = {isLogin}/>
+                  <input type="text" placeholder={_password} onBlur={handlePassword} disabled = {isLogin}/>
             </label>
             <div className='display-hr-center' style={{padding: '5px 0px'}}>
                <div>
