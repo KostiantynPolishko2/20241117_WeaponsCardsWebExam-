@@ -9,11 +9,11 @@ export const fetchImagePath = async (asteroidName: string): Promise<string> => {
 
     try{
         const responce = await asteroidImage.get(`new ${asteroidName}`);
-        console.log(responce);
+        // console.log(responce);
         return responce.data;
     }
     catch(error){
-        console.log('error ', error)
+        // console.log('error ', error)
         return 'https://docfiles.blob.core.windows.net/files/images/404.png';
     }
 }

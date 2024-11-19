@@ -14,7 +14,7 @@ export const HandleNameContext = createContext((e: React.FormEvent<HTMLElement> 
 const AdminPage: FC<IAdminPage> = () => {
 
    const [model, setModel] = useState<string | null>(null);
-   const [isShow, setIsShow] = useState<boolean>(true);
+   const [isLogin, setIsLogin] = useState<boolean>(true);
 
    const handleName = (e: React.FormEvent<HTMLElement> | null):void => {
       e?.preventDefault();
@@ -22,16 +22,16 @@ const AdminPage: FC<IAdminPage> = () => {
       console.log(model);
    };
 
-   const handleIsShow = (flag: boolean) => {
-      setIsShow(flag);
+   const handleIsLogin = (flag: boolean) => {
+      setIsLogin(flag);
    };
 
    return (   
       <AdminPageWrapper>
-         <Login _handleIsShow={handleIsShow}/>
-         <SearchForm/>
+         <Login _handleIsLogin={handleIsLogin}/>
+         <SearchForm isLogin={!isLogin}/>
          <HandleNameContext.Provider value={handleName}>
-            <WeaponsItemsTable flag={isShow}/>
+            <WeaponsItemsTable flag={isLogin}/>
             <WeaponsCard model={model}/>
          </HandleNameContext.Provider>
       </AdminPageWrapper>

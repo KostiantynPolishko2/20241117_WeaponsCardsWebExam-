@@ -9,7 +9,7 @@ interface ILoginModel {
 }
 
 interface IAuth {
-   _handleIsShow: (flag: boolean) => void
+   _handleIsLogin: (flag: boolean) => void
 }
 
 const Login: FC<IAuth> = (props) => {
@@ -47,19 +47,19 @@ const Login: FC<IAuth> = (props) => {
    const handleLoginMessage = () => {
       if (statusCode == 200){
          setIsLogin(true);
-         props._handleIsShow(true);
+         props._handleIsLogin(true);
          setLoginMessage('Authorized');
          setUsername('none');
          setPassword('none');
       }
       else if (statusCode == 401){
          setIsLogin(false);
-         props._handleIsShow(false);
+         props._handleIsLogin(false);
          setLoginMessage('Unauthorized');
       }
       else{
          setIsLogin(false);
-         props._handleIsShow(false);
+         props._handleIsLogin(false);
          setLoginMessage('');
          setUsername('none');
          setPassword('none');
@@ -90,7 +90,7 @@ const Login: FC<IAuth> = (props) => {
                   <button type='button' onClick={handleLogout}>Logout</button>
                </div>
                <div style={{textAlign:'center', width: '60%'}}>
-                  <LoginMessage isLogin={isLogin}>{loginMessage}</LoginMessage>
+                  {loginMessage != '' ? <LoginMessage isLogin={isLogin}>{loginMessage}</LoginMessage> : <></>}
                </div>
             </div>
          </LoginForm>
