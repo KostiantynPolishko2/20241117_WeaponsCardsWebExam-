@@ -1,4 +1,3 @@
-import { buffer } from 'stream/consumers';
 import styled from 'styled-components';
 
 interface IBtnShowHide {
@@ -28,4 +27,29 @@ export const BtnShowHide = styled.button.attrs<IBtnShowHide>(
         background-color: ${(props) => (props.isDisable ? "black" : "none")};
         box-shadow: ${(props) => props.isDisable ? "0px 0px 2px 2px whitesmoke" : "none"};
     }
+`;
+
+interface WeaponsTabelWrapper {
+    table_type: string
+}
+
+export const WeaponsTableWrapper = styled.div<WeaponsTabelWrapper>`
+    position: absolute;
+    width: 740px;
+    top: 0;
+    left: 550px;
+    margin: 7px;
+    ${props => props.table_type == '404'? {
+        backgroundColor: 'yellow',
+        color: 'red',
+        textAlign: 'center'
+    } : {
+        color: 'black'
+    }}
+`;
+
+export const WeaponsTable404Wrapper = styled(WeaponsTableWrapper)`
+    margin: 0;
+    left: 0;
+    top: 120px;
 `;

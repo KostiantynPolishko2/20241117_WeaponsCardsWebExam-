@@ -7,7 +7,7 @@ interface ILoginModel {
 export const LoginWrapper = styled.div`
     margin: 0;
     padding: 5px;
-    background-color: #48606e;
+    background-color: #74acc4;
     width: 480px;
     color: white;
 `;
@@ -19,7 +19,8 @@ export const LoginForm = styled.form`
     & label {
         margin: 5px;
         font-size: 18px;
-        color: wheat;
+        font-weight: 600;
+        color: whitesmoke;
     }
 
     & input {

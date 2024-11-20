@@ -41,6 +41,8 @@ const Login: FC<IAuth> = (props) => {
 
       if(loginModel != null){
          setStatusCode(await fetchToken(loginModel));
+         let elements = document.getElementsByClassName('credential');
+         (elements[1] as HTMLInputElement).value = '';
       }
    }
 
@@ -67,6 +69,9 @@ const Login: FC<IAuth> = (props) => {
    }
 
    const handleLogout = () => {
+      let elements = document.getElementsByClassName('credential');
+      (elements[0] as HTMLInputElement).value = '';
+      (elements[1] as HTMLInputElement).value = '';
       localStorage.removeItem('token');
       setStatusCode(0);
    }
@@ -78,11 +83,11 @@ const Login: FC<IAuth> = (props) => {
          <LoginForm>
             <label className='display-hr-center'>
                User Name:
-               <input type="text" placeholder={_username} onBlur={handleName} disabled = {isLogin}/>
+               <input type="text" className='credential' placeholder={_username} onBlur={handleName} disabled = {isLogin}/>
             </label>
             <label className='display-hr-center'>
                   Password:
-                  <input type="text" placeholder={_password} onBlur={handlePassword} disabled = {isLogin}/>
+                  <input type="text" className='credential' placeholder={_password} onBlur={handlePassword} disabled = {isLogin}/>
             </label>
             <div className='display-hr-center' style={{padding: '5px 0px'}}>
                <div>

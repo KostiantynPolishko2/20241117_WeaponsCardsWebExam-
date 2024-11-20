@@ -2,6 +2,8 @@ import React, {FC, useEffect, useState, useMemo, useCallback} from 'react';
 import './WeaponsCard.css';
 import axios from 'axios';
 import Card, { IWeaponsCardDto } from './Card';
+import Card404 from './Card404';
+import CardDefault from './CardDefault';
 
 interface IWeaponsCard {
   model: string | null,
@@ -47,15 +49,12 @@ const WeaponsCard: FC<IWeaponsCard> = (props) => {
   }, [handleRequest]);
 
   if (props.model == null){
-    return (<></>);
+    return <CardDefault/>;
   }
 
   if (clientsError != null) {
     return (
-      <div className="profile404-card">
-        <img className="avatar" src={'https://docfiles.blob.core.windows.net/files/images/404.png'} alt='logo 404 NotFound'/>
-        <h3>TRY NEW AGAIN</h3>
-      </div>
+      <Card404 model={props.model}/>
     );
   }
 

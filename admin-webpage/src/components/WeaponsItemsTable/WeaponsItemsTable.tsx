@@ -6,7 +6,7 @@ import { HandleNameContext } from '../AdminPage/AdminPage';
 import { WeaponsItemsTabelWrapper, BtnShowHide } from './WeaponsItemsTable.styled';
 
 interface WeaponsItemsTableProps {
-   flag: boolean
+
 }
 
 const WeaponsItemsTable: FC<WeaponsItemsTableProps> = (props) => {
@@ -20,12 +20,6 @@ const WeaponsItemsTable: FC<WeaponsItemsTableProps> = (props) => {
    const handleDisplay = () => {
       setIsDisplay(!isDisplay);
    };
-
-   useEffect(() => {
-      if (!props.flag){
-         setIsDisplay(!isDisplay);
-      }
-   }, [props.flag])
 
    useEffect(()=> {   
       if(isDisplay){
@@ -44,7 +38,7 @@ const WeaponsItemsTable: FC<WeaponsItemsTableProps> = (props) => {
       <WeaponsItemsTabelWrapper className='table-container' >
          <div className="table-header">
             <h2>Список вооружений ВСУ</h2>
-            <BtnShowHide className="download-button" onClick={handleDisplay} isDisable={!props.flag}>{btnTitle}</BtnShowHide>
+            <BtnShowHide className="download-button" onClick={handleDisplay} isDisable={!true}>{btnTitle}</BtnShowHide>
          </div>
          <div style={{display: display}}>
             <table>

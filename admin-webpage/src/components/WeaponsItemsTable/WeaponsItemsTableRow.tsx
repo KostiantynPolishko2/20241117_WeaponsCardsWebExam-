@@ -1,8 +1,8 @@
 import React, { FC, useState, useEffect, useCallback, useMemo, useContext } from 'react';
 import axios from 'axios';
-import { WeaponsTableRowWrapper } from './WeaponsItemsTableRow.styled';
 import './WeaponsItemsTable.css';
 import { HandleNameContext } from '../AdminPage/AdminPage';
+import WeaponsTable404 from './WeaponsTable404';
 
 interface IWeaponsItemsDto {
    model: string,
@@ -43,7 +43,6 @@ const WeaponsItemsTableRow: FC<TListRow> = (props) => {
          .then(responce => {
             setWeaponsItemsDto(responce.data);
             setClientsError(null);
-            // console.log(weaponsItemsDto);
          })
          .catch(error => {
             setWeaponsItemsDto([]);
@@ -58,9 +57,7 @@ const WeaponsItemsTableRow: FC<TListRow> = (props) => {
 
    if (clientsError != null){
       return (
-         <WeaponsTableRowWrapper>
-            <h3>Error401! Bad request.</h3>
-         </WeaponsTableRowWrapper>
+         <WeaponsTable404/>
       );
    }
 
