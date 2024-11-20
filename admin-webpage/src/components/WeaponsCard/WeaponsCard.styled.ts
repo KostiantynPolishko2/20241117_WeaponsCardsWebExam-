@@ -75,10 +75,41 @@ export const BtnCardIsVisible = styled.input.attrs<IBtnCardVisible>(
     cursor: ${(props) => (props.isCursor ? "not-allowed" : "pointer")};
 `;
 
+export const CheckBox = styled.input.attrs({
+    type: 'checkbox',
+})`
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+`;
+
 interface IBtnCRUD {
     isCursor: boolean,
 }
 
 export const BtnCRUD = styled.button<IBtnCRUD>`
     cursor: ${(props) => (props.isCursor ? "not-allowed" : "pointer")};
+`;
+
+export const CardInput = styled.input.attrs({
+    type: 'text',
+    required: true
+})`
+    width: 100px;
+    text-align: center;
+    font-size: 15px;
+    margin: 2px 0;
+    background-color: #f9ffc4;
+`;
+
+export const CardInputDescription = styled.input.attrs({
+    type: 'text',
+    required: true
+})`
+    width: 445px;
+    height: 40px;
+    text-align: center;
+    margin-bottom: 10px;
+    background-color: #f9ffc4;
+    font-size: 15px;
 `;

@@ -1,4 +1,4 @@
-import React, { FC, useState, createContext, useEffect, FunctionComponent, FunctionComponentElement, ReactElement } from 'react';
+import React, { FC, useState, createContext, useEffect, ReactElement } from 'react';
 import { AdminPageWrapper } from './AdminPage.styled';
 import Login from '../Login/Login';
 import WeaponsItemsTable from '../WeaponsItemsTable/WeaponsItemsTable';
