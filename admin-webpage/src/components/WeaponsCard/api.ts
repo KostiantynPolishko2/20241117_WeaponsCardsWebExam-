@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const fetchImagePath = async (asteroidName: string): Promise<string> => { 
+export const fetchImageAIPath = async (asteroidName: string): Promise<string> => { 
     const asteroidImage = axios.create({
         baseURL: 'https://spaceobjectaiserver.azurewebsites.net/api/AsteroidImage/asteroid-image',
         method: 'get',

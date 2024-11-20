@@ -2,7 +2,8 @@ import React, { FC, useState, createContext } from 'react';
 import { AdminPageWrapper } from './AdminPage.styled';
 import Login from '../Login/Login';
 import WeaponsItemsTable from '../WeaponsItemsTable/WeaponsItemsTable';
-import WeaponsCard from '../WeaponsCard/WeaponsCard'
+import WeaponsCardFromTable from '../WeaponsCard/WeaponsCard';
+import WeaponsCardFromSearch from '../WeaponsCard/WeaponsCard';
 import SearchForm from '../SearchForm/SearchForm';
 
 interface IAdminPage {
@@ -32,7 +33,8 @@ const AdminPage: FC<IAdminPage> = () => {
          <SearchForm isLogin={!isLogin}/>
          <HandleNameContext.Provider value={handleName}>
             <WeaponsItemsTable flag={isLogin}/>
-            <WeaponsCard model={model}/>
+            {/* <WeaponsCardFromTable model={model}/> */}
+            <WeaponsCardFromSearch model={'АКМ'}/>
          </HandleNameContext.Provider>
       </AdminPageWrapper>
    );
