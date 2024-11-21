@@ -43,7 +43,7 @@ const CardNew: FC<ICardNew> = (props) => {
     const [_weight, setWeight] = useState<number>(0);
     const [_vendor, setVendor] = useState<string>('none');
     const [_description, setDescription] = useState<string>('none');
-    const [_imagePath, setImagePath] = useState<string>('https://weaponsimages.blob.core.windows.net/images-service/select_image.png');
+    const [_imagePath, setImagePath] = useState<string>('');
     const [isValid, setIsValid] = useState<boolean>(false);
     const [isPostStatus, setIsPostStatus] = useState<number>(0);
     const [postStatus, setPostStatus] = useState<ReactElement<HTMLElement>>(<></>);
@@ -57,7 +57,7 @@ const CardNew: FC<ICardNew> = (props) => {
         let elements = document.getElementById('card-new')?.querySelectorAll('input');
 
         elements?.forEach(element => {
-            if(element.name == 'is_display'){
+            if(element.name === 'is_display'){
                 element.checked = false;
             }
             element.value = '';
@@ -99,10 +99,10 @@ const CardNew: FC<ICardNew> = (props) => {
     const handleSave = async () => {
 
         if(!isValid){
-            // console.log('not valid');
             return;
         }
-
+      
+        setImagePath('https://weaponsimages.blob.core.windows.net/images-service/select_image.png');
         const _weaponsData: WeaponsData = {weaponsItem : {
             Model: _model, Name: _name, Type: _type, isVisible: _visible
         }, weaponsProperty : {
@@ -111,16 +111,15 @@ const CardNew: FC<ICardNew> = (props) => {
             name: _name, path: _imagePath || ''
         }}
 
-        // console.log('weaponsData', _weaponsData);
         setIsPostStatus(await postWeaponsData(_model, _weaponsData));
     }
 
     useEffect(() => {
-        if(isPostStatus == 201){
+        if(isPostStatus === 201){
             setPostStatus(<PostStatus style={{color: '#28ed21'}}>POSTED</PostStatus>);
             handleClearInput();
         }
-        else if (isPostStatus == 401){
+        else if (isPostStatus === 401){
             setPostStatus(<PostStatus style={{color: 'red'}}>ERROR</PostStatus>);
         }
         else{

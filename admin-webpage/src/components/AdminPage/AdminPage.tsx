@@ -1,4 +1,4 @@
-import React, { FC, useState, createContext, useEffect, ReactElement } from 'react';
+import React, { FC, useState, createContext, useEffect, ReactElement, useCallback } from 'react';
 import { AdminPageWrapper } from './AdminPage.styled';
 import Login from '../Login/Login';
 import WeaponsItemsTable from '../WeaponsItemsTable/WeaponsItemsTable';
@@ -38,7 +38,7 @@ const AdminPage: FC<IAdminPage> = () => {
       setIsLogin(flag);
    };
 
-   const displayWeaponsCard = (): void => {
+   const displayWeaponsCard = useCallback((): void => {
       if (modelFromTable != null && modelFromSearch == null) {    
          setWeaponsCard(<WeaponsCardFromTable model={modelFromTable}/>);
       }
@@ -50,9 +50,9 @@ const AdminPage: FC<IAdminPage> = () => {
          setModeFromTable(null);
          setWeaponsCard(<CardDefault/>);
       }
-   };
+   },[modelFromTable, modelFromSearch]);
 
-   const displayPageContent = ():void => {
+   const displayPageContent = useCallback(():void => {
       if(isLogin){
          setWeaponsTable(<WeaponsItemsTable/>);
          setSearchForm(<SearchForm isLogin={!isLogin} _handleModeFromSearch={handleModelFromSearch}/>);
@@ -63,15 +63,15 @@ const AdminPage: FC<IAdminPage> = () => {
          setModeFromSearch(null);
          setModeFromTable(null);
       }
-   };
+   }, [isLogin]);
 
    useEffect(()=>{
       displayPageContent();
-   }, [isLogin])
+   }, [displayPageContent])
 
    useEffect(()=>{
       displayWeaponsCard();
-   }, [modelFromTable, modelFromSearch]);
+   }, [displayWeaponsCard]);
 
    return (   
       <AdminPageWrapper>

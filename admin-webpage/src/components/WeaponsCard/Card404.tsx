@@ -11,7 +11,7 @@ const Card404: FC<ICard404> = (props) => {
         <WeaponsCardWraps>
             <div className="profile404-card" style={{padding: '5px', width: '480px'}}>
                 <p>weapons model <span>{props.model?.toUpperCase() || 'None'}</span> is not founded</p>
-                <img src="https://weaponsimages.blob.core.windows.net/errors/404.png" width={'475px'}/>
+                <img src="https://weaponsimages.blob.core.windows.net/errors/404.png" width={'475px'} alt={`logo ${props.model || 'weapons'}`}/>
             </div>
         </WeaponsCardWraps>
     );

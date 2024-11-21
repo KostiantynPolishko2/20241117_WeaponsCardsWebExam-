@@ -38,7 +38,7 @@ export const postWeaponsData = async(model: string, weaponsData: WeaponsData): P
 
 export const deleteWeaponsData = async(model: string): Promise<number> => {
 
-    if(model == 'none'){
+    if(model === 'none'){
         return 401;
     }
 

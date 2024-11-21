@@ -7,7 +7,7 @@ import { deleteWeaponsData } from "./api";
 
 interface ICardLoaded {
     card: IWeaponsCardDto | null
-}
+};
 
 const CardLoaded: FC<ICardLoaded> = (props) => {
 
@@ -20,12 +20,12 @@ const CardLoaded: FC<ICardLoaded> = (props) => {
     }
 
     useEffect(() => {
-        if(isDeleteStatus == 201){
+        if(isDeleteStatus === 201){
             console.log('delete status', isDeleteStatus);
             setDeleteStatus(<PostStatus style={{color: 'green', bottom: '20%', left: '30%'}}>DELETED</PostStatus>);
             setIsDeleteStatus(0);
         }
-        else if (isDeleteStatus == 401){
+        else if (isDeleteStatus === 401){
             setDeleteStatus(<PostStatus style={{color: 'red', bottom: '20%', left: '30%'}}>ERROR</PostStatus>);
             setIsDeleteStatus(0)
         }
