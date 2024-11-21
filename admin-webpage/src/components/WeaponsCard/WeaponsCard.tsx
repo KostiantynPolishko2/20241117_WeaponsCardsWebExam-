@@ -20,7 +20,7 @@ const WeaponsCard: FC<IWeaponsCard> = (props) => {
 
   const weaponsCardRequest = useMemo(() => 
     axios.create({
-      baseURL: 'http://localhost:5144/api/WeaponsItems',
+      baseURL: 'https://adminpage-server.azurewebsites.net/api/WeaponsItems',
       method: 'get',
       responseType: 'json',
       timeout: 4000

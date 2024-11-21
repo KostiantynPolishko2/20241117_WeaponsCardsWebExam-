@@ -34,7 +34,7 @@ const Card: FC<ICard> = (props) => {
         else{
             setCardDisplayed(<CardNew _handleIsCardNew={handleIsCardNew}/>);
         }
-    }, [isCardNew]);
+    }, [isCardNew, props.card?.model]);
 
     return (
         <WeaponsCardWraps>
@@ -43,7 +43,7 @@ const Card: FC<ICard> = (props) => {
                 <div className="actions">
                     <button className="edit-btn" onClick={handleIsCardNew}>{!isCardNew ? 'New' : 'Back'}</button>           
                 </div>
-          </div>
+            </div>
         </WeaponsCardWraps>
     );
 }

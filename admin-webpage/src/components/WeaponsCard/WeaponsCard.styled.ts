@@ -113,3 +113,8 @@ export const CardInputDescription = styled.input.attrs({
     background-color: #f9ffc4;
     font-size: 15px;
 `;
+
+export const PostStatus = styled.p`
+    position: absolute;
+    bottom: 0;
+`;

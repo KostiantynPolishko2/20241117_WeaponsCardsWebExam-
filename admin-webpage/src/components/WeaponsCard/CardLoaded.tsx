@@ -1,14 +1,40 @@
-import React, { FC } from "react";
+import React, { FC, useState, ReactElement, useEffect } from "react";
 import './WeaponsCard.css';
-import { FielDescription, BtnCardIsVisible, BtnCRUD } from "./WeaponsCard.styled";
+import { FielDescription, BtnCardIsVisible, BtnCRUD, PostStatus } from "./WeaponsCard.styled";
 import { Display } from "../styles/styles.styled";
 import { IWeaponsCardDto } from "./Card";
+import { deleteWeaponsData } from "./api";
+import CardDefault from "./CardDefault";
 
 interface ICardLoaded {
     card: IWeaponsCardDto | null
 }
 
 const CardLoaded: FC<ICardLoaded> = (props) => {
+
+    const [isDeleteStatus, setIsDeleteStatus] = useState<number>(0);
+    const [deleteStatus, setDeleteStatus] = useState<ReactElement<HTMLElement>>(<></>);
+
+    const handleDelete = async () => {
+        deleteWeaponsData(props.card?.model || 'none');
+        setIsDeleteStatus(await deleteWeaponsData(props.card?.description || 'none'));
+    }
+
+    useEffect(() => {
+        if(isDeleteStatus == 201){
+            console.log('delete status', isDeleteStatus);
+            setDeleteStatus(<PostStatus style={{color: 'green', bottom: '20%', left: '30%'}}>DELETED</PostStatus>);
+            setIsDeleteStatus(0);
+        }
+        else if (isDeleteStatus == 401){
+            setDeleteStatus(<PostStatus style={{color: 'red', bottom: '20%', left: '30%'}}>ERROR</PostStatus>);
+            setIsDeleteStatus(0)
+        }
+        else{
+            setDeleteStatus(<></>)
+        }
+    }, [isDeleteStatus]);
+
     return (
         <>
             <div className="profile-details">
@@ -27,7 +53,8 @@ const CardLoaded: FC<ICardLoaded> = (props) => {
             <FielDescription>
                 <p>{props.card?.description}</p>
             </FielDescription>
-            <BtnCRUD className='delete-btn' disabled={!true} isCursor={!true}>Delete</BtnCRUD>
+            <BtnCRUD className='delete-btn' disabled={!true} isCursor={!true} onClick={handleDelete}>Delete</BtnCRUD>
+            {deleteStatus}
         </>
     );
 }

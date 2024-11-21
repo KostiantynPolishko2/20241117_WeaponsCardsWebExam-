@@ -1,7 +1,8 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, ReactElement, useEffect } from "react";
 import './WeaponsCard.css';
-import { BtnImgWrapper, CheckBox, CardInput, CardInputDescription, BtnCRUD } from "./WeaponsCard.styled";
+import { BtnImgWrapper, CheckBox, CardInput, CardInputDescription, BtnCRUD, PostStatus } from "./WeaponsCard.styled";
 import { Display } from "../styles/styles.styled";
+import { postWeaponsData } from "./api";
 
 type WeaponsItem = {
     Model: string,
@@ -22,7 +23,7 @@ type WeaponsImages = {
     path: string
 }
 
-type WeaponsData = {
+export type WeaponsData = {
     weaponsItem: WeaponsItem,
     weaponsProperty: WeaponsProperty
     weaponsImage: WeaponsImages
@@ -34,7 +35,7 @@ interface ICardNew {
 
 const CardNew: FC<ICardNew> = (props) => {
    
-    const [_model, setModel] = useState<string>('https://weaponsimages.blob.core.windows.net/images-service/logo_ukraine-armed-forces.png');
+    const [_model, setModel] = useState<string>('none');
     const [_name, setName] = useState<string>('none');
     const [_type, setType] = useState<string>('none');
     const [_visible, setVisible] = useState<boolean>(false);
@@ -42,8 +43,10 @@ const CardNew: FC<ICardNew> = (props) => {
     const [_weight, setWeight] = useState<number>(0);
     const [_vendor, setVendor] = useState<string>('none');
     const [_description, setDescription] = useState<string>('none');
-    const [_imagePath, setImagePath] = useState<string | null>(null);
+    const [_imagePath, setImagePath] = useState<string>('https://weaponsimages.blob.core.windows.net/images-service/select_image.png');
     const [isValid, setIsValid] = useState<boolean>(false);
+    const [isPostStatus, setIsPostStatus] = useState<number>(0);
+    const [postStatus, setPostStatus] = useState<ReactElement<HTMLElement>>(<></>);
 
     const handleImageAI = async (e: React.FormEvent<HTMLElement>): Promise<void> => {
         // setImagePath(await fetchImageAIPath((e.currentTarget.lastElementChild as HTMLImageElement).alt));
@@ -60,6 +63,7 @@ const CardNew: FC<ICardNew> = (props) => {
             element.value = '';
         });
         setIsValid(false);
+        setIsPostStatus(0);
     }
 
     const handlePrice = (e: React.FormEvent<HTMLElement>) => {
@@ -92,14 +96,14 @@ const CardNew: FC<ICardNew> = (props) => {
         }
     }
 
-    const handleSave = () => {
+    const handleSave = async () => {
 
         if(!isValid){
-            console.log('not valid');
+            // console.log('not valid');
             return;
         }
 
-        const weaponsData: WeaponsData = {weaponsItem : {
+        const _weaponsData: WeaponsData = {weaponsItem : {
             Model: _model, Name: _name, Type: _type, isVisible: _visible
         }, weaponsProperty : {
             price: _price, weight: _weight, Vendor: _vendor, Description: _description
@@ -107,9 +111,22 @@ const CardNew: FC<ICardNew> = (props) => {
             name: _name, path: _imagePath || ''
         }}
 
-        console.log('weaponsData', weaponsData);
-        handleClearInput();
+        // console.log('weaponsData', _weaponsData);
+        setIsPostStatus(await postWeaponsData(_model, _weaponsData));
     }
+
+    useEffect(() => {
+        if(isPostStatus == 201){
+            setPostStatus(<PostStatus style={{color: '#28ed21'}}>POSTED</PostStatus>);
+            handleClearInput();
+        }
+        else if (isPostStatus == 401){
+            setPostStatus(<PostStatus style={{color: 'red'}}>ERROR</PostStatus>);
+        }
+        else{
+            setPostStatus(<></>)
+        }
+    }, [isPostStatus]);
 
     return (
         <>
@@ -123,7 +140,7 @@ const CardNew: FC<ICardNew> = (props) => {
                         <label>
                             <Display>
                                 <h2>Model:</h2>
-                                <CardInput id='model' placeholder="name..." onBlur={e => setModel(e.currentTarget.value)}/>
+                                <CardInput id='model' placeholder="model..." onBlur={e => setModel(e.currentTarget.value)}/>
                             </Display>
                         </label> 
                         <label>
@@ -166,7 +183,8 @@ const CardNew: FC<ICardNew> = (props) => {
                 </div>
                 <CardInputDescription name='description' placeholder='description...' onBlur={e => setDescription(e.currentTarget.value)}/>
             </div>
-            <BtnCRUD className='post-btn' disabled={!isValid} isCursor={!isValid} onClick={()=>{handleSave(); props._handleIsCardNew()}}>Save</BtnCRUD>
+            <BtnCRUD className='post-btn' disabled={!isValid} isCursor={!isValid} onClick={handleSave}>Save</BtnCRUD>
+            {postStatus}
         </>
     );
 }
