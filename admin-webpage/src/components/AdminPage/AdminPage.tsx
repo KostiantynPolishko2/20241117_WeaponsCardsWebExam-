@@ -50,7 +50,7 @@ const AdminPage: FC<IAdminPage> = () => {
          setModeFromTable(null);
          setWeaponsCard(<CardDefault/>);
       }
-   },[modelFromTable, modelFromSearch]);
+   },[modelFromTable, modelFromSearch, isLogin]);
 
    const displayPageContent = useCallback(():void => {
       if(isLogin){

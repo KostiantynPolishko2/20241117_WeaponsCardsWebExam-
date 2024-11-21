@@ -21,6 +21,8 @@ const Login: FC<IAuth> = (props) => {
    const [statusCode, setStatusCode] = useState<number>(0);
    const [loginMessage, setLoginMessage] = useState<string>('');
 
+   const handleIsLogin = props._handleIsLogin;
+
    const handleName = (e: React.FormEvent<HTMLElement>) => {
       setUsername((e.currentTarget as HTMLInputElement).value);
    };
@@ -49,19 +51,19 @@ const Login: FC<IAuth> = (props) => {
    const handleLoginMessage = useCallback(() => {
       if (statusCode === 200){
          setIsLogin(true);
-         props._handleIsLogin(true);
+         handleIsLogin(true);
          setLoginMessage('Authorized');
          setUsername('none');
          setPassword('none');
       }
       else if (statusCode === 401){
          setIsLogin(false);
-         props._handleIsLogin(false);
+         handleIsLogin(false);
          setLoginMessage('Unauthorized');
       }
       else{
          setIsLogin(false);
-         props._handleIsLogin(false);
+         handleIsLogin(false);
          setLoginMessage('');
          setUsername('none');
          setPassword('none');
