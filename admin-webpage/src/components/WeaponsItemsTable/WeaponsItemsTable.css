@@ -1,0 +1,86 @@
+.table-container {
+    width: 80%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    position: relative;
+  }
+  
+  .table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #29970d;
+    color: white;
+    padding: 15px;
+  }
+  
+  .table-header h2 {
+    margin: 0;
+  }
+  
+  .download-button {
+    background-color: #366d0f;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .download-button:hover {
+    background-color: #80df45;
+  }
+  
+  table {
+    border-spacing: 0;
+    border: 1px solid #ddd;
+  }
+  
+  thead {
+    background-color: #f95341;
+    color: white;
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  th {
+    background-color: #003651;
+    color: white;
+    border: 1px, solid, #ddd;
+    box-sizing: border-box;
+  }
+  
+  tbody tr:hover {
+    background-color: #9ad8f7; 
+  }
+  
+  tbody tr {
+    background-color: white; 
+  }
+
+  table {
+    width: 100%;
+    border-spacing: 0;
+    border: 2px solid black;
+}
+
+/* To display the block as level element */
+table tbody,
+table thead {
+    display: block;
+}
+
+
+tbody {
+    height: 265px;
+    overflow-y: auto;
+}
