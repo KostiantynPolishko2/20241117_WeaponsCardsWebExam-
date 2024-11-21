@@ -7,7 +7,7 @@ import { deleteWeaponsData } from "./api";
 
 interface ICardLoaded {
     card: IWeaponsCardDto | null
-}
+};
 
 const CardLoaded: FC<ICardLoaded> = (props) => {
 

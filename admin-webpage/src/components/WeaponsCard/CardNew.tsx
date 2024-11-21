@@ -101,7 +101,7 @@ const CardNew: FC<ICardNew> = (props) => {
         if(!isValid){
             return;
         }
-
+      
         setImagePath('https://weaponsimages.blob.core.windows.net/images-service/select_image.png');
         const _weaponsData: WeaponsData = {weaponsItem : {
             Model: _model, Name: _name, Type: _type, isVisible: _visible
