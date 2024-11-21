@@ -21,20 +21,27 @@ interface ICard {
 const Card: FC<ICard> = (props) => {
 
     const [cardDisplayed, setCardDisplayed] = useState<ReactElement<HTMLElement> | null>(null);
+    const [isCardNew, setIsCardNew] = useState<boolean>(false);
+
+    const handleIsCardNew = () => {
+        setIsCardNew(!isCardNew);
+    };
 
     useEffect(() => {
-        setCardDisplayed(<CardLoaded card={props.card}/>);
-    }, [props.card?.model]);
+        if(!isCardNew){
+            setCardDisplayed(<CardLoaded card={props.card}/>);
+        }
+        else{
+            setCardDisplayed(<CardNew _handleIsCardNew={handleIsCardNew}/>);
+        }
+    }, [isCardNew]);
 
     return (
         <WeaponsCardWraps>
             <div className="profile-card">
-                <CardNew/>
-                {/* {cardDisplayed} */}
+                {cardDisplayed}
                 <div className="actions">
-                    <button className="edit-btn">New</button>
-                    <BtnCRUD className='post-btn' disabled={true} isCursor={true}>Save</BtnCRUD>
-                    <BtnCRUD className='delete-btn' disabled={!true} isCursor={!true}>Delete</BtnCRUD>
+                    <button className="edit-btn" onClick={handleIsCardNew}>{!isCardNew ? 'New' : 'Back'}</button>           
                 </div>
           </div>
         </WeaponsCardWraps>

@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import './WeaponsCard.css';
-import { FielDescription, BtnCardIsVisible } from "./WeaponsCard.styled";
+import { FielDescription, BtnCardIsVisible, BtnCRUD } from "./WeaponsCard.styled";
 import { Display } from "../styles/styles.styled";
 import { IWeaponsCardDto } from "./Card";
 
@@ -14,7 +14,7 @@ const CardLoaded: FC<ICardLoaded> = (props) => {
             <div className="profile-details">
                 <img className="avatar" src={props.card?.image_path} alt={`${props.card?.name || 'none'}`}/>
                 <div className="profile-info">
-                    <h2>Name:   {props.card?.model}</h2>
+                    <h2>Model:   {props.card?.model}</h2>
                     <h2>Type:   {props.card?.name}</h2>
                     <h3>Size:   {props.card?.price}UAH</h3>
                     <h3>Weight: {props.card?.weight}kg</h3>
@@ -27,6 +27,7 @@ const CardLoaded: FC<ICardLoaded> = (props) => {
             <FielDescription>
                 <p>{props.card?.description}</p>
             </FielDescription>
+            <BtnCRUD className='delete-btn' disabled={!true} isCursor={!true}>Delete</BtnCRUD>
         </>
     );
 }

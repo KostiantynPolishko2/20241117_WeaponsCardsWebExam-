@@ -34,7 +34,7 @@
 
   .profile404-card > p > span {
     font-size: 25px;
-    color: ;
+    color: red;
   }
 
   .profile-details {
@@ -70,8 +70,8 @@
   }
   
   .actions {
-    display: flex;
-    justify-content: space-between;
+    /* display: flex; */
+    /* justify-content: space-between; */
     width: 100%;
   }
   
@@ -83,6 +83,9 @@
     width: 120px;
     border-radius: 5px;
     cursor: pointer;
+    position: relative;
+    left: -37%;
+    bottom: 35px;
   }
   
   .post-btn {
