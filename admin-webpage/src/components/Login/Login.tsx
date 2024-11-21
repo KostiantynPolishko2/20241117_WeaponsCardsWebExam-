@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState, useCallback } from 'react';
 import { LoginWrapper, LoginForm, LoginMessage } from './Login.styled';
 import { fetchToken } from './LoginApi';
 import '../styles/styles.css';
@@ -30,7 +30,7 @@ const Login: FC<IAuth> = (props) => {
    };
 
    useEffect(() => {
-      if(_username != 'none' && _password != 'none')
+      if(_username !== 'none' && _password !== 'none')
       {
          setLoginModel({username: _username, password: _password});
       }  
@@ -39,22 +39,22 @@ const Login: FC<IAuth> = (props) => {
    const handleLogin = async (e: React.FormEvent<HTMLElement>) => {
       e.preventDefault();
 
-      if(loginModel != null){
+      if(loginModel !== null){
          setStatusCode(await fetchToken(loginModel));
          let elements = document.getElementsByClassName('credential');
          (elements[1] as HTMLInputElement).value = '';
       }
-   }
+   };
 
-   const handleLoginMessage = () => {
-      if (statusCode == 200){
+   const handleLoginMessage = useCallback(() => {
+      if (statusCode === 200){
          setIsLogin(true);
          props._handleIsLogin(true);
          setLoginMessage('Authorized');
          setUsername('none');
          setPassword('none');
       }
-      else if (statusCode == 401){
+      else if (statusCode === 401){
          setIsLogin(false);
          props._handleIsLogin(false);
          setLoginMessage('Unauthorized');
@@ -66,7 +66,7 @@ const Login: FC<IAuth> = (props) => {
          setUsername('none');
          setPassword('none');
       }
-   }
+   }, [statusCode]);
 
    const handleLogout = () => {
       let elements = document.getElementsByClassName('credential');
@@ -74,9 +74,11 @@ const Login: FC<IAuth> = (props) => {
       (elements[1] as HTMLInputElement).value = '';
       localStorage.removeItem('token');
       setStatusCode(0);
-   }
+   };
 
-   useEffect(() => {handleLoginMessage();}, [statusCode]);
+   useEffect(() => {
+      handleLoginMessage();
+   }, [handleLoginMessage]);
 
    return (
       <LoginWrapper>
@@ -95,7 +97,7 @@ const Login: FC<IAuth> = (props) => {
                   <button type='button' onClick={handleLogout}>Logout</button>
                </div>
                <div style={{textAlign:'center', width: '60%'}}>
-                  {loginMessage != '' ? <LoginMessage isLogin={isLogin}>{loginMessage}</LoginMessage> : <></>}
+                  {loginMessage !== '' ? <LoginMessage isLogin={isLogin}>{loginMessage}</LoginMessage> : <></>}
                </div>
             </div>
          </LoginForm>

@@ -1,6 +1,6 @@
-import React, { FC, useState, ReactElement, useEffect} from "react";
+import React, { FC, useState, ReactElement, useEffect, useCallback} from "react";
 import './WeaponsCard.css';
-import { WeaponsCardWraps, BtnCRUD  } from "./WeaponsCard.styled";
+import { WeaponsCardWraps } from "./WeaponsCard.styled";
 import CardLoaded from "./CardLoaded";
 import CardNew from "./CardNew";
 
@@ -23,9 +23,9 @@ const Card: FC<ICard> = (props) => {
     const [cardDisplayed, setCardDisplayed] = useState<ReactElement<HTMLElement> | null>(null);
     const [isCardNew, setIsCardNew] = useState<boolean>(false);
 
-    const handleIsCardNew = () => {
+    const handleIsCardNew = useCallback(() => {
         setIsCardNew(!isCardNew);
-    };
+    }, [isCardNew]);
 
     useEffect(() => {
         if(!isCardNew){
@@ -34,7 +34,7 @@ const Card: FC<ICard> = (props) => {
         else{
             setCardDisplayed(<CardNew _handleIsCardNew={handleIsCardNew}/>);
         }
-    }, [isCardNew, props.card?.model]);
+    }, [handleIsCardNew, props.card?.model]);
 
     return (
         <WeaponsCardWraps>

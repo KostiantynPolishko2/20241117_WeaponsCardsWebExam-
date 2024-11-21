@@ -39,7 +39,7 @@ export const WeaponsTableWrapper = styled.div<WeaponsTabelWrapper>`
     top: 0;
     left: 550px;
     margin: 7px;
-    ${props => props.table_type == '404'? {
+    ${props => props.table_type === '404'? {
         backgroundColor: 'yellow',
         color: 'red',
         textAlign: 'center'
