@@ -1,0 +1,139 @@
+.profile404-card{
+  background-color: #fcfc21;
+  color: rgb(35, 138, 9);
+  width: 450px;
+  min-height: fit-content;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.profile-card {
+    background-color: #464343;
+    color: rgb(255, 255, 255);
+    width: 450px;
+    min-height: fit-content;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .profile-card > p {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+.profile404-card > p{
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .profile404-card > p > span {
+    font-size: 25px;
+    color: red;
+  }
+
+  .profile-details {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .avatar {
+    width: 200px;
+    height: 200px;
+    background-color: #726969;
+    padding: 5px;
+    margin: 0 10px;
+  }
+
+  .profile-info{
+    position: relative;
+    background-color: #726969;
+    margin: 0 10px;
+    padding: 5px;
+    width: 200px;
+  }
+  
+  .profile-info h2 {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+  
+  .profile-info p {
+    margin: 5px 0;
+  }
+  
+  .actions {
+    /* display: flex; */
+    /* justify-content: space-between; */
+    width: 100%;
+  }
+  
+  .edit-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 120px;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    left: -37%;
+    bottom: 35px;
+  }
+  
+  .post-btn {
+    background-color: #4a97d6;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 120px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 120px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .edit-btn:hover {
+    background-color: #218838;
+  }
+
+  .post-btn:hover {
+    background-color: #286ea7;
+  }
+  
+  .delete-btn:hover {
+    background-color: #c82333;
+  }
+  
+  .btn-card-clear-input {
+    position: absolute;
+    left: 358px;
+    bottom: 64px;
+    font-weight: 600;
+    background-color: #c82333;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 120px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+  .btn-card-clear-input {
+    background-color: #c82333;
+}
