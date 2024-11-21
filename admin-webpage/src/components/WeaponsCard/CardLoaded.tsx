@@ -4,7 +4,6 @@ import { FielDescription, BtnCardIsVisible, BtnCRUD, PostStatus } from "./Weapon
 import { Display } from "../styles/styles.styled";
 import { IWeaponsCardDto } from "./Card";
 import { deleteWeaponsData } from "./api";
-import CardDefault from "./CardDefault";
 
 interface ICardLoaded {
     card: IWeaponsCardDto | null

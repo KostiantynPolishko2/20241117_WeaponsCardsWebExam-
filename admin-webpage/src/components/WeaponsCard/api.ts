@@ -20,7 +20,7 @@ export const fetchImageAIPath = async (asteroidName: string): Promise<string> =>
 export const postWeaponsData = async(model: string, weaponsData: WeaponsData): Promise<number> => {
 
     const weaponsDataPost = axios.create({
-        baseURL: 'http://localhost:5144/api/WeaponsItems',
+        baseURL: 'https://adminpage-server.azurewebsites.net/api/WeaponsItems',
         method: 'post',
         responseType: 'json',
         timeout: 4000,
@@ -28,8 +28,8 @@ export const postWeaponsData = async(model: string, weaponsData: WeaponsData): P
     weaponsDataPost.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
 
     try{
-        const responce = await weaponsDataPost.post(`new-model/${model}`, weaponsData);
-        return responce.data;
+        await weaponsDataPost.post(`new-model/${model}`, weaponsData);
+        return 201;
     }
     catch(error){
         return 401;
@@ -43,7 +43,7 @@ export const deleteWeaponsData = async(model: string): Promise<number> => {
     }
 
     const weaponsDataDelete = axios.create({
-        baseURL: 'http://localhost:5144/api/WeaponsItems',
+        baseURL: 'https://adminpage-server.azurewebsites.net/api/WeaponsItems',
         method: 'delete',
         responseType: 'json',
         timeout: 4000,
@@ -51,8 +51,8 @@ export const deleteWeaponsData = async(model: string): Promise<number> => {
     weaponsDataDelete.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
 
     try{
-        const responce = await weaponsDataDelete.delete(`model/${model}`);
-        return responce.data;
+        await weaponsDataDelete.delete(`model/${model}`);
+        return 201;
     }
     catch(error){
         return 401;
