@@ -68,7 +68,7 @@ const Login: FC<IAuth> = (props) => {
          setUsername('none');
          setPassword('none');
       }
-   }, [statusCode]);
+   }, [statusCode, handleIsLogin]);
 
    const handleLogout = () => {
       let elements = document.getElementsByClassName('credential');
