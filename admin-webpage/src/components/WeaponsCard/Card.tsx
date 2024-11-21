@@ -34,7 +34,7 @@ const Card: FC<ICard> = (props) => {
         else{
             setCardDisplayed(<CardNew _handleIsCardNew={handleIsCardNew}/>);
         }
-    }, [handleIsCardNew, props.card?.model, isCardNew]);
+    }, [handleIsCardNew, props.card, isCardNew]);
 
     return (
         <WeaponsCardWraps>
