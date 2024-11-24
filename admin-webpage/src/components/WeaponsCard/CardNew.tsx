@@ -2,7 +2,7 @@ import React, { FC, useState, ReactElement, useEffect } from "react";
 import './WeaponsCard.css';
 import { BtnImgWrapper, CheckBox, CardInput, CardInputDescription, BtnCRUD, PostStatus } from "./WeaponsCard.styled";
 import { Display } from "../styles/styles.styled";
-import { postWeaponsData } from "./api";
+import { postWeaponsData, fetchImageAIPath } from "./api";
 
 type WeaponsItem = {
     Model: string,
@@ -43,13 +43,20 @@ const CardNew: FC<ICardNew> = (props) => {
     const [_weight, setWeight] = useState<number>(0);
     const [_vendor, setVendor] = useState<string>('none');
     const [_description, setDescription] = useState<string>('none');
-    const [_imagePath, setImagePath] = useState<string>('');
     const [isValid, setIsValid] = useState<boolean>(false);
     const [isPostStatus, setIsPostStatus] = useState<number>(0);
     const [postStatus, setPostStatus] = useState<ReactElement<HTMLElement>>(<></>);
 
+    const selectImage: string = 'https://weaponsimages.blob.core.windows.net/images-service/select_image.png';
+    const [imageAI, setImageAI] = useState<string>('none');
+
     const handleImageAI = async (e: React.FormEvent<HTMLElement>): Promise<void> => {
-        // setImagePath(await fetchImageAIPath((e.currentTarget.lastElementChild as HTMLImageElement).alt));
+        e.preventDefault();
+        if(_model === 'none'){
+            return;
+        }
+
+        setImageAI(await fetchImageAIPath(_model));
     }
 
     const handleClearInput = () => {
@@ -62,6 +69,8 @@ const CardNew: FC<ICardNew> = (props) => {
             }
             element.value = '';
         });
+        setModel('none');
+        setImageAI('none');
         setIsValid(false);
         setIsPostStatus(0);
     }
@@ -102,16 +111,17 @@ const CardNew: FC<ICardNew> = (props) => {
             return;
         }
       
-        setImagePath('https://weaponsimages.blob.core.windows.net/images-service/select_image.png');
+        // setImagePath(selectImage);
         const _weaponsData: WeaponsData = {weaponsItem : {
             Model: _model, Name: _name, Type: _type, isVisible: _visible
         }, weaponsProperty : {
             price: _price, weight: _weight, Vendor: _vendor, Description: _description
         }, weaponsImage : {
-            name: _name, path: _imagePath || ''
+            name: _name, path: imageAI || selectImage
         }}
 
         setIsPostStatus(await postWeaponsData(_model, _weaponsData));
+        setImageAI('none');
     }
 
     useEffect(() => {
@@ -133,7 +143,7 @@ const CardNew: FC<ICardNew> = (props) => {
                 <button className="btn-card-clear-input" onClick={handleClearInput}>CLEAR</button>
                 <div className="profile-details">
                     <BtnImgWrapper onClick={handleImageAI} isDisable = {!true}>
-                        <img className="avatar" src={'https://weaponsimages.blob.core.windows.net/images-service/select_image.png'} alt={'logo select'}/>
+                        <img className="avatar" src={imageAI !== 'none'? imageAI : selectImage} alt={'logo weapons model'}/>
                     </BtnImgWrapper>
                     <div className="profile-info">
                         <label>

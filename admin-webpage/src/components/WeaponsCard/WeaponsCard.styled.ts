@@ -9,7 +9,7 @@ export const BtnImgWrapper = styled.button.attrs<IBtnImg>(
         type: "button",
         name: "edit",
         autoFocus: true,
-        disabled: !props.isDisable
+        disabled: props.isDisable
     })
 )<IBtnImg>`
     margin: 0;

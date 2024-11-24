@@ -1,19 +1,23 @@
 import axios from "axios";
 import { WeaponsData } from "./CardNew";
 
-export const fetchImageAIPath = async (asteroidName: string): Promise<string> => { 
-    const asteroidImage = axios.create({
-        baseURL: 'https://spaceobjectaiserver.azurewebsites.net/api/AsteroidImage/asteroid-image',
+export const fetchImageAIPath = async (weaponsModel: string): Promise<string> => { 
+    const weaponsImageAI = axios.create({
+        baseURL: 'https://imageai-server.azurewebsites.net/api/ImageAI/weapons-image',
         method: 'get',
         responseType: 'json',
+        timeout: 25000,
     });
+    weaponsImageAI.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
 
     try{
-        const responce = await asteroidImage.get(`new ${asteroidName}`);
+        console.log('requested model', weaponsModel);
+        const responce = await weaponsImageAI.get(weaponsModel);
         return responce.data;
     }
     catch(error){
-        return 'https://docfiles.blob.core.windows.net/files/images/404.png';
+        console.log('error', error);
+        return 'https://weaponsimages.blob.core.windows.net/errors/404.png';
     }
 }
 
