@@ -50,6 +50,7 @@ const CardNew: FC<ICardNew> = (props) => {
     const selectImage: string = 'https://weaponsimages.blob.core.windows.net/images-service/select_image.png';
     const [imageAI, setImageAI] = useState<string>('none');
 
+
     const handleImageAI = async (e: React.FormEvent<HTMLElement>): Promise<void> => {
         e.preventDefault();
         if(_model === 'none'){

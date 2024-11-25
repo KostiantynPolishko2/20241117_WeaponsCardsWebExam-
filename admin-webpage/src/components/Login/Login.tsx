@@ -91,7 +91,7 @@ const Login: FC<IAuth> = (props) => {
             </label>
             <label className='display-hr-center'>
                   Password:
-                  <input type="text" className='credential' placeholder={_password} onBlur={handlePassword} disabled = {isLogin}/>
+                  <input type="password" className='credential' placeholder={_password} onBlur={handlePassword} disabled = {isLogin}/>
             </label>
             <div className='display-hr-center' style={{padding: '5px 0px'}}>
                <div>
