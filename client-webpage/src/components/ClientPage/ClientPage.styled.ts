@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ClientPageWrapper = styled.main`
-    background-color:rgb(90, 100, 121);
+    background-color:rgb(104, 120, 155);
     min-height: 100vh;
     display: flex;
     flex-direction: column;

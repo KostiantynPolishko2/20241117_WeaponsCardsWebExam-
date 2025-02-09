@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import ClientPage from './ClientPage/ClientPage';
+import ClientPage from './components/ClientPage/ClientPage';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
