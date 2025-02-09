@@ -45,19 +45,20 @@
   }
   
   .avatar {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     background-color: #726969;
-    padding: 5px;
-    margin: 0 10px;
+    padding: 3px;
+    margin: 0 3px;
   }
 
   .profile-info{
     position: relative;
     background-color: #726969;
-    margin: 0 10px;
-    padding: 5px;
-    width: 200px;
+    margin: 0 3px;
+    padding: 0 3px 6px 3px;
+    width: 230px;
+    color: whitesmoke;
   }
   
   .profile-info h2 {

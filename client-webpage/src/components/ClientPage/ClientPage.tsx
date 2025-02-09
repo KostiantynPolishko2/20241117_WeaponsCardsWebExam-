@@ -6,7 +6,6 @@ import PaginationWeapons from "../Pagination/PaginationWeapons";
 const ClientPage: FC = () => {
     return(
     <_main>
-        <p>client page</p>
         <PaginationWeapons/>
     </_main>);
 }

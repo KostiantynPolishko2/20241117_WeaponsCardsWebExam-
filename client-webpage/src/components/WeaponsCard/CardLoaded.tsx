@@ -1,6 +1,7 @@
 import React, { FC, useState, ReactElement, useEffect } from "react";
 import './WeaponsCard.css';
-import { FielDescription, BtnCardIsVisible, BtnCRUD, PostStatus } from "./WeaponsCard.styled";
+import '../styles/styles.css';
+import { FielDescription, BtnCRUD } from "./WeaponsCard.styled";
 import { Display } from "../styles/styles.styled";
 import { WeaponsCardWraps } from "./WeaponsCard.styled";
 // import { IWeaponsCardDto } from "./Card";
@@ -25,22 +26,31 @@ const CardLoaded: FC<ICardLoaded> = (props) => {
         <WeaponsCardWraps>
             <div className="profile-details">
                 <img className="avatar" src={props.card?.image_path} alt={`${props.card?.name || 'none'}`}/>
-                <div className="profile-info">
-                    <h2>Model:   {props.card?.model}</h2>
-                    <h2>Type:   {props.card?.name}</h2>
-                    <h3>Size:   {props.card?.price}UAH</h3>
-                    <h3>Weight: {props.card?.weight}kg</h3>
-                    <Display>
-                        <h3>Activeted card:</h3>
-                        <BtnCardIsVisible isVisible={props.card?.isVisible || false} isCursor={true} disabled={true}/>
-                    </Display>
-                </div>
+                <Display _direction="column">
+                    <div className="profile-info">
+                        <div className="flex-container">
+                            <h2>Model</h2>
+                            <h2>{props.card?.model}</h2>
+                        </div>
+                        <div className="flex-container">
+                            <h2>Type</h2>
+                            <h2>{props.card?.name}</h2>
+                        </div>
+                        <div className="flex-container">
+                            <h3>Price, UAH</h3>
+                            <h3>{props.card?.price}</h3>
+                        </div>
+                        <div className="flex-container">
+                            <h3>Weight, kg</h3>
+                            <h3>{props.card?.weight}</h3>
+                        </div>           
+                    </div>
+                    <BtnCRUD className='post-btn' disabled={!true} isCursor={!true}>ORDER</BtnCRUD>
+                </Display>
             </div>
             <FielDescription>
                 <p>{props.card?.description}</p>
             </FielDescription>
-            {/* <BtnCRUD className='delete-btn' disabled={!true} isCursor={!true} onClick={handleDelete}>Delete</BtnCRUD> */}
-            {/* {deleteStatus} */}
         </WeaponsCardWraps>
     );
 }
