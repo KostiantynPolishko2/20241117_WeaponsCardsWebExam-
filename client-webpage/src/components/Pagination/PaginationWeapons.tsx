@@ -1,24 +1,28 @@
-import React, {FC, useState} from "react";
+import React, {FC, useState, useEffect} from "react";
 import { PaginationWrapper } from "./PaginationWrapper.styled";
 import CardLoaded from "../WeaponsCard/CardLoaded";
-import { ICardLoaded, IWeaponsCardDto } from "../WeaponsCard/CardLoaded";
-import default_img from '../../assets/images/ukraine-weapons.png';
+import { IWeaponsCardDto } from "../WeaponsCard/CardLoaded";
 import { Display } from "../styles/styles.styled";
+import { fetchCards } from "../WeaponsCard/api";
 
 const PaginationWeapons: FC = () => {
 
-    const [card, setCard] = useState<IWeaponsCardDto>({
-        model: 'none model', name: 'none name', isVisible: true, price: 0, weight: 0.0, 
-        description: 'none description', image_path: default_img});
+    const [cards, setCards] = useState<IWeaponsCardDto[]>([]);
 
-    
+    const handleFetchCards = async () => {
+        setCards(await fetchCards());
+        console.log('cards', cards);
+    }
+
+    useEffect(()=>{
+        handleFetchCards();
+    }, []);
 
     return(
         <PaginationWrapper>
             <p>ukraine armed forces</p>
             <Display>
-                <CardLoaded card={card}/>
-                <CardLoaded card={card}/>
+                {cards.length === 0? <p>error404</p> : cards.map((card) => (<CardLoaded card={card}/>))}
             </Display>
         </PaginationWrapper>
     );
