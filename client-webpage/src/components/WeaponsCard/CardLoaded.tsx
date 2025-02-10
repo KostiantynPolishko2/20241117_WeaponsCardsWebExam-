@@ -17,7 +17,8 @@ export interface IWeaponsCardDto {
 }
 
 export interface ICardLoaded {
-    card: IWeaponsCardDto
+    card: IWeaponsCardDto,
+    isButton?: boolean,
 }
 
 const CardLoaded: FC<ICardLoaded> = (props) => {
@@ -47,7 +48,7 @@ const CardLoaded: FC<ICardLoaded> = (props) => {
                             <h4>{props.card.weight}</h4>
                         </div>           
                     </div>
-                    <BtnCRUD onClick={()=>{handleSetCardContext(props.card)}} className='post-btn' disabled={!true} isCursor={!true}>ORDER</BtnCRUD>
+                    <BtnCRUD onClick={()=>{handleSetCardContext(props.card)}} className='post-btn' disabled={props.isButton || false} isCursor={props.isButton || false}>ORDER</BtnCRUD>
                 </Display>
             </div>
             <FielDescription>

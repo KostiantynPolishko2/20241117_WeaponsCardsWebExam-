@@ -38,4 +38,5 @@ export const BtnCRUD = styled.button<IBtnCRUD>`
     cursor: ${(props) => (props.isCursor ? "not-allowed" : "pointer")};
     margin: 5px 0;
     width: 75px;
+    background-color: ${props => props.isCursor ? '#525661' : "#4a97d6"};
 `;
