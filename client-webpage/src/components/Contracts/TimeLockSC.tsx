@@ -23,7 +23,7 @@ const getClientTxId = (events: EventLog[]):string => {
     const lastIndex = events.length-1;
     if (lastIndex >= 0){
         const typedEvent = events[lastIndex] as EventLog;
-        console.log('type event 0', typedEvent.args[0]);
+        // console.log('type event 0', typedEvent.args[0]);
         return typedEvent.args[0];
     }
 
@@ -40,11 +40,11 @@ export const addToQueue = async(contract: Contract | null, model: string, totalS
 
         // Execute the payable function with the value in the overrides
         const tx = await contract?.addToQueue(model, totalSum, {value: totalSum,});
-        console.log('txId', tx);
+        // console.log('txId', tx);
 
         // Wait for the transaction to be mined
         const receipt = await tx.wait();
-        console.log('Transaction receipt:', receipt);
+        // console.log('Transaction receipt:', receipt);
 
         // Extract the event from the receipt
         const filter = contract.filters.Queued();  // Filter for all Queued events
@@ -53,22 +53,11 @@ export const addToQueue = async(contract: Contract | null, model: string, totalS
         // filter to get only EventLog Items
         const eventsLog = events.filter((log): log is EventLog => 'args' in log);
 
-        // Return the transaction hash as confirmation
-        // return receipt.transactionHash;
-
+        // Return the transaction custom id to track data
         return getClientTxId(eventsLog);
     }
     catch(error){
         console.log('txid error', error);
         return 'none';
-    }
-}
-
-export const getTxDataByID = async(txId: string, contract: Contract | null) => {
-    try{
-        return await contract?.getTxData(txId);
-    }
-    catch (error){
-        return null;
     }
 }

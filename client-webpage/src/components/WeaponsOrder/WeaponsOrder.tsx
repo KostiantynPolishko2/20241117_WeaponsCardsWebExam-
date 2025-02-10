@@ -45,10 +45,6 @@ const WeaponsOrder:FC<ICardLoaded> = (props) => {
         }
     }
 
-    // const handleGetTxDataByID = async () => {
-    //     console.log('txid => ', await getTxDataByID('0x299d802c045e161aecd429b09a3ed779d91d9cc43917ba18b849bf8d7acc1759', lockTimesSC));
-    // }
-
     useEffect(()=>{
         handleLTSC();
         // console.log('useEffect account', userData.account);
@@ -70,7 +66,6 @@ const WeaponsOrder:FC<ICardLoaded> = (props) => {
                     </Display>
                     <OrderData model={model} totalSum={totalSum} account={userData.account} handleConfirmtx={handleConfirmTx}/>
                     <Result txId={txId}/>
-                    {/* <button onClick={handleGetTxDataByID}>GetTxIdData</button> */}
                 </div>
             </Display>
         </WeaponsOrderWrapper>
