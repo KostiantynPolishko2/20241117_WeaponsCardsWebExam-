@@ -22,11 +22,11 @@ const FormAccount: FC<IHandleAccount> = (props) => {
         const _privateKey: string = (e.currentTarget.parentElement?.getElementsByTagName('input')[1] as HTMLInputElement).value.toString();
         const _form  = e.currentTarget.parentElement as HTMLFormElement | null;
 
-        // console.log('account, key', _account, _privateKey);
-
+        
         if (_account && _privateKey){
             _form?.reset();
             setIsDisable(true);
+            // console.log('account, key', _account, _privateKey);
             props.handleSetUserData(_account, _privateKey);
         }
     }
