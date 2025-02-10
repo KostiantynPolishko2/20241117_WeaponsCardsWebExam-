@@ -22,3 +22,16 @@ export const Display = styled.div<DisplayContent>`
     justify-content: ${props => props._justify || 'space-between' };
     align-items: ${props => props._align || 'center'};
 `;
+
+interface IButtonWrapper {
+    color?: string
+}
+
+export const ButtonWrapper = styled.button<IButtonWrapper>`
+    background-color: ${props => props.color || 'grey'};
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    color: black;
+    cursor: pointer;
+`

@@ -4,6 +4,7 @@ import { ICardLoaded } from "../WeaponsCard/CardLoaded";
 import CardLoaded from "../WeaponsCard/CardLoaded";
 import FormOrder from "./FormOrder/FormOrder";
 import { Display } from "../styles/styles.styled";
+import FormAccount from "./FormAccount/FormAccount";
 
 // interface IWeaponsCard {
 //     weaponsCard: React.FC,
@@ -15,7 +16,10 @@ const WeaponsOrder:FC<ICardLoaded> = (props) => {
         <WeaponsOrderWrapper>
             <Display>
                 <CardLoaded card={props.card} isButton={true}/>
-                <FormOrder price={props.card.price} model={props.card.model}/>
+                <Display>
+                    <FormOrder price={props.card.price} model={props.card.model}/>
+                    <FormAccount/>
+                </Display>
             </Display>
         </WeaponsOrderWrapper>
     );
