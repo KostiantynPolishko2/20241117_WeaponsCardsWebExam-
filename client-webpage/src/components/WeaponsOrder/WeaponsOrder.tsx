@@ -9,7 +9,7 @@ import FormAccount from "./FormAccount/FormAccount";
 import OrderData from "./Orders/OrderData";
 import { IAccount } from "./FormAccount/FormAccount";
 import Result from "./Result/Result";
-import { getTimeLockSC, addToQueue, getTxDataByID } from "../Contracts/TimeLockSC";
+import { getTimeLockSC, addToQueue } from "../Contracts/TimeLockSC";
 
 const WeaponsOrder:FC<ICardLoaded> = (props) => {
 
@@ -41,7 +41,7 @@ const WeaponsOrder:FC<ICardLoaded> = (props) => {
     const handleConfirmTx = async () => {
         if(lockTimesSC !== null){
             console.log('handleConfirmTx', lockTimesSC, model, totalSum);
-            setTxId(await addToQueue(lockTimesSC, userData.account, totalSum));
+            setTxId(await addToQueue(lockTimesSC, model, totalSum));
         }
     }
 
@@ -56,6 +56,7 @@ const WeaponsOrder:FC<ICardLoaded> = (props) => {
 
     useEffect(()=>{
         setModel(props.card.model);
+        setTxId('none');
     }, [props.card.model]);
 
     return(
