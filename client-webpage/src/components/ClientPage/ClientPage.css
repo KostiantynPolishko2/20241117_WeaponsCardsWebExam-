@@ -1,0 +1,23 @@
+.client_page-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .client_page-logo {
+    animation: client_page-logo-spin infinite 20s linear;
+  }
+}
+
+.client_page-link {
+  color: #61dafb;
+}
+
+@keyframes client_page-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
