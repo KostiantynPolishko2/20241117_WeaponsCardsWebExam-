@@ -9,7 +9,7 @@ export interface IAccount {
 
 interface IHandleAccount {
     handleSetUserData: (_account: string, _privateKey: string)=>void,
-    // handleResetLoadedSC?: ()=>void,
+    handleResetUserData: ()=>void,
 }
 
 const FormAccount: FC<IHandleAccount> = (props) => {
@@ -37,7 +37,7 @@ const FormAccount: FC<IHandleAccount> = (props) => {
         const _form  = e.currentTarget.parentElement as HTMLFormElement | null;
         _form?.reset();
         setIsDisable(false);
-        // props.handleResetLoadedSC();
+        props.handleResetUserData();
     }
 
     return(

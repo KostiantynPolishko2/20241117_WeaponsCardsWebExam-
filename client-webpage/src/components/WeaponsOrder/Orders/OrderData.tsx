@@ -6,6 +6,7 @@ export interface IOrderData {
     model?: string,
     totalSum?: number,
     account?: string,
+    handleConfirmtx: ()=>void,
 }
 
 const OrderData:FC<IOrderData> = (props) => {
@@ -19,7 +20,10 @@ const OrderData:FC<IOrderData> = (props) => {
                 <p>|</p>
                 <p>{props.account || 'none'}</p>
                 <p>|</p>
-                <button className="btn-default">confirm</button>
+                <button className="btn-default" onClick={props.handleConfirmtx} disabled={props.account === 'none'}
+                style={{cursor: props.account === 'not-allowed'? 'none' : 'pointer',
+                    backgroundColor: props.account === 'none'? 'grey' : 'greenyellow'
+                }}>confirm</button>
                 <p>|</p>
             </Display>
         </OrderDataWrapper>

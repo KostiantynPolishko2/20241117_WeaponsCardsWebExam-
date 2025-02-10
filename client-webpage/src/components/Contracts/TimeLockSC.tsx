@@ -19,3 +19,21 @@ export const getTimeLockSC = async(privateKey: string): Promise<Contract | null>
     }
 };
 
+export const addToQueue = async(contract: Contract | null, model: string, totalSum: number): Promise<string> => {
+    try {
+        return await contract?.addToQueue(model, totalSum);
+    }
+    catch(error){
+        console.log('txid error', error);
+        return 'none';
+    }
+}
+
+export const getTxDataByID = async(txId: string, contract: Contract | null) => {
+    try{
+        return await contract?.getTxData(txId);
+    }
+    catch (error){
+        return null;
+    }
+}

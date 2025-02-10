@@ -9,7 +9,7 @@ import FormAccount from "./FormAccount/FormAccount";
 import OrderData from "./Orders/OrderData";
 import { IAccount } from "./FormAccount/FormAccount";
 import Result from "./Result/Result";
-import { getTimeLockSC } from "../Contracts/TimeLockSC";
+import { getTimeLockSC, addToQueue, getTxDataByID } from "../Contracts/TimeLockSC";
 
 const WeaponsOrder:FC<ICardLoaded> = (props) => {
 
@@ -17,6 +17,7 @@ const WeaponsOrder:FC<ICardLoaded> = (props) => {
     const [totalSum, setTotalSum] = useState<number>(props.card.price);
     const [userData, setUserData] = useState<IAccount>({account: 'none', privateKey: 'none'});
     const [lockTimesSC, setLockTimeSC] = useState<Contract | null>(null);
+    const [txId, setTxId] = useState<string>('none');
 
     const handleTotalSum = (totalSum: number) => {
         setTotalSum(totalSum);
@@ -27,10 +28,26 @@ const WeaponsOrder:FC<ICardLoaded> = (props) => {
         // console.log('handle account', userData.account);
     }
 
+    const handleResetUserData = () => {
+        setUserData({account: 'none', privateKey: 'none'});
+        setTxId('none');
+    }
+
     const handleLTSC = async () => {
         setLockTimeSC(await getTimeLockSC(userData?.privateKey));
         // console.log('lockTimesSC', lockTimesSC);
     }
+
+    const handleConfirmTx = async () => {
+        if(lockTimesSC !== null){
+            console.log('handleConfirmTx', lockTimesSC, model, totalSum);
+            setTxId(await addToQueue(lockTimesSC, userData.account, totalSum));
+        }
+    }
+
+    // const handleGetTxDataByID = async () => {
+    //     console.log('txid => ', await getTxDataByID('0x299d802c045e161aecd429b09a3ed779d91d9cc43917ba18b849bf8d7acc1759', lockTimesSC));
+    // }
 
     useEffect(()=>{
         handleLTSC();
@@ -48,10 +65,11 @@ const WeaponsOrder:FC<ICardLoaded> = (props) => {
                 <div>
                     <Display>
                         <FormOrder price={props.card.price} model={props.card.model} handleTotalSum={handleTotalSum}/>
-                        <FormAccount handleSetUserData={handleSetUserData}/>
+                        <FormAccount handleSetUserData={handleSetUserData} handleResetUserData={handleResetUserData}/>
                     </Display>
-                    <OrderData model={model} totalSum={totalSum} account={userData.account}/>
-                    <Result/>
+                    <OrderData model={model} totalSum={totalSum} account={userData.account} handleConfirmtx={handleConfirmTx}/>
+                    <Result txId={txId}/>
+                    {/* <button onClick={handleGetTxDataByID}>GetTxIdData</button> */}
                 </div>
             </Display>
         </WeaponsOrderWrapper>
