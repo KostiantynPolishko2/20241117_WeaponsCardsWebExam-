@@ -8,7 +8,7 @@ export interface IAccount {
 }
 
 interface IHandleAccount {
-    // handleSetAccount: (_account: string, _privateKey: string)=>void,
+    handleSetUserData: (_account: string, _privateKey: string)=>void,
     // handleResetLoadedSC?: ()=>void,
 }
 
@@ -27,7 +27,7 @@ const FormAccount: FC<IHandleAccount> = (props) => {
         if (_account && _privateKey){
             _form?.reset();
             setIsDisable(true);
-            // props.handleSetAccount(_account, _privateKey);
+            props.handleSetUserData(_account, _privateKey);
         }
     }
 

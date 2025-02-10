@@ -6,6 +6,7 @@ export const FormOrderWraps = styled.form`
     margin: 5px;
     padding: 3px;
     width: 200px;
+    height: 100px;
 
     & > input {
         background-color: #8c855f;

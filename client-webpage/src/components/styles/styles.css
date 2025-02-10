@@ -21,3 +21,11 @@
     /* border: 1px solid #ccc;
     padding: 5px; */
 }
+
+.btn-default {
+    background-color: chartreuse;
+    cursor: pointer;
+    padding: 0 3px;
+    border: 1px solid black;
+    border-radius: 5px;
+}

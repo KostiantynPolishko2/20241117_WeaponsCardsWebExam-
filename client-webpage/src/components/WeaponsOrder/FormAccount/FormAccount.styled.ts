@@ -10,6 +10,7 @@ export const FormAccountWrapper = styled.form<IFormAccount>`
     color: black;
     margin: 5px;
     padding: 5px;
+    height: 100px;
     /* width: 711px; */
     min-height: 80px;
 

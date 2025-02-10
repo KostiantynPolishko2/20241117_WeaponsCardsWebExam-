@@ -4,6 +4,7 @@ import { FormOrderWraps } from "./FormOrder.styled";
 interface IFormOrder {
     model: string,
     price: number,
+    handleTotalSum: (totalSum: number)=>void,
 }
 
 const FormOrder:FC<IFormOrder> = (props) => {
@@ -11,7 +12,9 @@ const FormOrder:FC<IFormOrder> = (props) => {
     const [totalSum, setTotalSum] = useState<number>(props.price * 1);
 
     const handleTotalSum = (e: React.FormEvent<HTMLElement>) => {
-        setTotalSum((e.currentTarget as HTMLFormElement).value * props.price)
+        e.preventDefault();
+        setTotalSum((e.currentTarget as HTMLFormElement).value * props.price);
+        props.handleTotalSum((e.currentTarget as HTMLFormElement).value * props.price);
         // console.log('total sum', totalSum);
     }
 
@@ -31,7 +34,7 @@ const FormOrder:FC<IFormOrder> = (props) => {
             <p>form weapons order</p>
             <label htmlFor='quantity'>quantity</label>
             <input id='quantity' type='number' min='1' placeholder='1' onChange={handleTotalSum}/><br/>
-            <label htmlFor='total'>total, uah</label>
+            <label htmlFor='total'>total, wei</label>
             <input id='total' type='text' placeholder={totalSum.toString()} style={{left: '12px', backgroundColor: ' #ddd088'}} disabled/>
         </FormOrderWraps>
     );

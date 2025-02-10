@@ -40,7 +40,7 @@ const CardLoaded: FC<ICardLoaded> = (props) => {
                             <h4 className="txt-overlow">{props.card.name}</h4>
                         </div>
                         <div className="flex-container">
-                            <h4>price, UAH</h4>
+                            <h4>price, wei</h4>
                             <h4>{props.card.price}</h4>
                         </div>
                         <div className="flex-container">
