@@ -1,10 +1,10 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import './WeaponsCard.css';
 import '../styles/styles.css';
 import { FielDescription, BtnCRUD } from "./WeaponsCard.styled";
 import { Display } from "../styles/styles.styled";
 import { WeaponsCardWraps } from "./WeaponsCard.styled";
-import image_url from '../../assets/images/BARRETT M82.png'
+import { HandleSetCardContext } from "../ClientPage/ClientPage";
 
 export interface IWeaponsCardDto {
     model: string,
@@ -21,7 +21,10 @@ export interface ICardLoaded {
 }
 
 const CardLoaded: FC<ICardLoaded> = (props) => {
-        return (
+
+    const handleSetCardContext = useContext(HandleSetCardContext);
+
+    return (
         <WeaponsCardWraps>
             <div className="profile-details">
                 <img className="avatar" src={require(`../../assets/images/${props.card.model || '404.png'}.png`)} alt={`${props.card.name || 'none'}`}/>
@@ -44,7 +47,7 @@ const CardLoaded: FC<ICardLoaded> = (props) => {
                             <h4>{props.card.weight}</h4>
                         </div>           
                     </div>
-                    <BtnCRUD className='post-btn' disabled={!true} isCursor={!true}>ORDER</BtnCRUD>
+                    <BtnCRUD onClick={()=>{handleSetCardContext(props.card)}} className='post-btn' disabled={!true} isCursor={!true}>ORDER</BtnCRUD>
                 </Display>
             </div>
             <FielDescription>
